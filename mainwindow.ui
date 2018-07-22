@@ -1,0 +1,657 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>754</width>
+    <height>538</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SerialPort Tool</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="toolTip">
+       <string/>
+      </property>
+      <property name="layoutDirection">
+       <enum>Qt::LeftToRight</enum>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(235, 235, 235);</string>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_1">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;普通接收&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <attribute name="title">
+        <string>原生</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_5">
+        <item>
+         <widget class="QSplitter" name="splitter_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>94</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="title">
+            <string>串口设置</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <item>
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>串口</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cbx_Serial">
+                <property name="currentText">
+                 <string>COM0</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>COM0</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM2</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM3</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM4</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM5</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM6</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM7</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM8</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM9</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM10</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM11</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM12</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM13</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>COM14</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_3">
+                <property name="text">
+                 <string>波特率</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cbx_BaudRate">
+                <property name="currentText">
+                 <string>115200</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>115200</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>4800</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>9600</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>38400</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>128000</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>256000</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_4">
+                <property name="text">
+                 <string>数据位</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cbx_DataBit">
+                <property name="currentText">
+                 <string>8</string>
+                </property>
+                <item>
+                 <property name="text">
+                  <string>8</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>6</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>7</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_5">
+                <property name="text">
+                 <string>校验位</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cbx_CheckBit">
+                <item>
+                 <property name="text">
+                  <string>无</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>奇</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>偶</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_6">
+                <property name="text">
+                 <string>停止位</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="cbx_StopBit">
+                <item>
+                 <property name="text">
+                  <string>1</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>1.5</string>
+                 </property>
+                </item>
+                <item>
+                 <property name="text">
+                  <string>2</string>
+                 </property>
+                </item>
+               </widget>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="title">
+            <string>接收数据</string>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_3">
+            <item>
+             <widget class="QSplitter" name="splitter">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <widget class="QRadioButton" name="rbt_TextDisp">
+               <property name="text">
+                <string>字符显示</string>
+               </property>
+               <property name="checked">
+                <bool>true</bool>
+               </property>
+              </widget>
+              <widget class="QRadioButton" name="rbt_HexDisp">
+               <property name="text">
+                <string>十六进制显示</string>
+               </property>
+              </widget>
+              <widget class="QLCDNumber" name="lcd_Receive">
+               <property name="styleSheet">
+                <string notr="true">QLCDNumber{
+	background-color: rgb(85, 170, 0);
+}</string>
+               </property>
+              </widget>
+              <widget class="QPushButton" name="btn_ClearDisp">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>23</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>23</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>清空显示</string>
+               </property>
+               <property name="icon">
+                <iconset resource="images.qrc">
+                 <normaloff>:/images/edit-clear.png</normaloff>:/images/edit-clear.png</iconset>
+               </property>
+              </widget>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTextBrowser" name="txtbrs_Disp">
+              <property name="font">
+               <font>
+                <family>Consolas</family>
+                <pointsize>18</pointsize>
+               </font>
+              </property>
+              <property name="cursor" stdset="0">
+               <cursorShape>ArrowCursor</cursorShape>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="maximumSize">
+           <size>
+            <width>16777215</width>
+            <height>85</height>
+           </size>
+          </property>
+          <property name="title">
+           <string>发送数据</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <property name="sizeConstraint">
+              <enum>QLayout::SetFixedSize</enum>
+             </property>
+             <item>
+              <widget class="QCheckBox" name="cbx_Timer">
+               <property name="maximumSize">
+                <size>
+                 <width>85</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>定时（ms）</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spb_Delay">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>54</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="minimum">
+                <number>10</number>
+               </property>
+               <property name="maximum">
+                <number>5000</number>
+               </property>
+               <property name="value">
+                <number>200</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="cbx_SendHex">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;以十六进制方式发送数据（默认为字符方式）&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+             <property name="text">
+              <string>十六进制发送</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="let_Send">
+             <property name="maxLength">
+              <number>10000</number>
+             </property>
+             <property name="dragEnabled">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_Send">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>发送</string>
+             </property>
+             <property name="icon">
+              <iconset resource="images.qrc">
+               <normaloff>:/images/send.png</normaloff>:/images/send.png</iconset>
+             </property>
+             <property name="autoDefault">
+              <bool>false</bool>
+             </property>
+             <property name="default">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_2">
+       <property name="toolTip">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;自定义接收&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+       <attribute name="title">
+        <string>定制</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="verticalLayout_7">
+        <item>
+         <widget class="QTableView" name="tbv_Disp">
+          <property name="font">
+           <font>
+            <family>Consolas</family>
+            <pointsize>12</pointsize>
+           </font>
+          </property>
+          <property name="mouseTracking">
+           <bool>true</bool>
+          </property>
+          <property name="sizeAdjustPolicy">
+           <enum>QAbstractScrollArea::AdjustToContents</enum>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>754</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_C">
+    <property name="title">
+     <string>操作(&amp;C)</string>
+    </property>
+    <addaction name="action_AddSerial"/>
+    <addaction name="separator"/>
+    <addaction name="action_OpenSerial"/>
+    <addaction name="action_CloseSerial"/>
+    <addaction name="separator"/>
+    <addaction name="action_ReadFile"/>
+    <addaction name="action_WriteFile"/>
+    <addaction name="separator"/>
+    <addaction name="action_ClearNum"/>
+    <addaction name="action_ClearSerial"/>
+    <addaction name="separator"/>
+    <addaction name="action_Exit"/>
+   </widget>
+   <widget class="QMenu" name="menu_A">
+    <property name="title">
+     <string>关于(&amp;A)</string>
+    </property>
+   </widget>
+   <addaction name="menu_C"/>
+   <addaction name="menu_A"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QToolBar" name="mainToolBar">
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextBesideIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="action_OpenSerial"/>
+   <addaction name="action_CloseSerial"/>
+   <addaction name="separator"/>
+   <addaction name="action_AddSerial"/>
+   <addaction name="action_ReadFile"/>
+   <addaction name="action_WriteFile"/>
+   <addaction name="separator"/>
+   <addaction name="action_ClearSerial"/>
+   <addaction name="action_ClearNum"/>
+   <addaction name="separator"/>
+  </widget>
+  <action name="action_AddSerial">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/add.png</normaloff>:/images/add.png</iconset>
+   </property>
+   <property name="text">
+    <string>添加串口</string>
+   </property>
+   <property name="toolTip">
+    <string>添加串口设备</string>
+   </property>
+  </action>
+  <action name="action_OpenSerial">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/open.png</normaloff>:/images/open.png</iconset>
+   </property>
+   <property name="text">
+    <string>打开串口</string>
+   </property>
+   <property name="toolTip">
+    <string>打开串口</string>
+   </property>
+   <property name="statusTip">
+    <string>打开串口</string>
+   </property>
+   <property name="autoRepeat">
+    <bool>true</bool>
+   </property>
+   <property name="visible">
+    <bool>true</bool>
+   </property>
+   <property name="shortcutVisibleInContextMenu">
+    <bool>false</bool>
+   </property>
+  </action>
+  <action name="action_CloseSerial">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/stop.png</normaloff>:/images/stop.png</iconset>
+   </property>
+   <property name="text">
+    <string>关闭串口</string>
+   </property>
+  </action>
+  <action name="action_ReadFile">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/loadfile.png</normaloff>:/images/loadfile.png</iconset>
+   </property>
+   <property name="text">
+    <string>读取文件</string>
+   </property>
+  </action>
+  <action name="action_WriteFile">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/write2file.png</normaloff>:/images/write2file.png</iconset>
+   </property>
+   <property name="text">
+    <string>写入文件</string>
+   </property>
+  </action>
+  <action name="action_ClearNum">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/clearbytes.png</normaloff>:/images/clearbytes.png</iconset>
+   </property>
+   <property name="text">
+    <string>计数清零</string>
+   </property>
+  </action>
+  <action name="action_ClearSerial">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/cleanport.png</normaloff>:/images/cleanport.png</iconset>
+   </property>
+   <property name="text">
+    <string>清空串口</string>
+   </property>
+  </action>
+  <action name="action_Exit">
+   <property name="icon">
+    <iconset resource="images.qrc">
+     <normaloff>:/images/exit.png</normaloff>:/images/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>退出程序</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources>
+  <include location="images.qrc"/>
+ </resources>
+ <connections/>
+</ui>
