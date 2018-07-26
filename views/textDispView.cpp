@@ -12,20 +12,23 @@ TextDispView::TextDispView(QTextBrowser *text,QLCDNumber *lcd,QList<QRadioButton
 void TextDispView::DispData(QByteArray bytes)
 {
     QString buf;
-    if(!bytes.isEmpty()){
-        if(rbt_TextDisp ->isChecked()){
-            buf = bytes;
-        }else if(rbt_HexDisp->isChecked()){
-            for(int i = 0; i < bytes.count(); i++){
-                QString s;
-                s.sprintf("0x%02x, ", (unsigned char)bytes.at(i));
-                buf += s;
+    if(this->textBrowser->isActiveWindow())
+    {
+        if(!bytes.isEmpty()){
+            if(rbt_TextDisp ->isChecked()){
+                buf = bytes;
+            }else if(rbt_HexDisp->isChecked()){
+                for(int i = 0; i < bytes.count(); i++){
+                    QString s;
+                    s.sprintf("0x%02x, ", (unsigned char)bytes.at(i));
+                    buf += s;
+                }
             }
+            textBrowser->setText(textBrowser->document()->toPlainText() + buf);
+            textBrowser->moveCursor(QTextCursor::End);
+           // statusBar->showMessage(tr("成功读取%1字节数据").arg(bytes.size()));
         }
-        textBrowser->setText(textBrowser->document()->toPlainText() + buf);
-        textBrowser->moveCursor(QTextCursor::End);
-       // statusBar->showMessage(tr("成功读取%1字节数据").arg(bytes.size()));
+        lcd_Receive->display(lcd_Receive->value() + bytes.size());
     }
-    lcd_Receive->display(lcd_Receive->value() + bytes.size());
 }
 

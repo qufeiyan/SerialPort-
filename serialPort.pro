@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui serialport
+QT       += core gui serialport charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,7 +31,8 @@ SOURCES += \
     models/serialSettingModel.cpp \
     views/CustomDispView.cpp \
     views/TextDispView.cpp \
-    views/ConnectionWidget.cpp
+    views/ConnectionWidget.cpp \
+    views/RealTimeChart.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -40,7 +41,8 @@ HEADERS += \
     models/serialSettingModel.h \
     views/CustomDispView.h \
     views/TextDispView.h \
-    views/ConnectionWidget.h
+    views/ConnectionWidget.h \
+    views/RealTimeChart.h
 
 FORMS += \
         mainwindow.ui

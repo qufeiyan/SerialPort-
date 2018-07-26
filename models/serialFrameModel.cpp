@@ -54,12 +54,10 @@ void SerialFrameModel::unpackFrame(QByteArray bytes)
 
        memcpy(&imu->frmSeq,imuReport.mid(22,2).constData(),2);
 
-       qDebug()<<"this is"<<imu->frmSeq<<imu->gyrData[2]<<imu->magData[0];
-
        offset += IMU_FRAME_LENGTH;
        length -= IMU_FRAME_LENGTH;
 
-       qDebug()<<this->thread();
+//       qDebug()<<this->thread();
        emit sendIMUModel(imu);
    }
 }

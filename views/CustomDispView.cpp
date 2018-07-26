@@ -1,5 +1,6 @@
 #include "CustomDispView.h"
 #include <QDebug>
+
 CustomDispView::CustomDispView(QTableView *table)
 {
     this->tableView = table;
@@ -49,5 +50,7 @@ void CustomDispView::dispFrame(IMUFrame *imu)
         <<item7<<item8<<item9;
     model->appendRow(item);
     tableView->scrollToBottom();
+    
+            
 }
 
