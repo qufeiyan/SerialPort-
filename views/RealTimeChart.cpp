@@ -186,7 +186,7 @@ void RealTimeChart::creatCSV()
     foreach (IMUFrame imu, temp) {
         s += QString::number(imu.frmSeq) + ","
                 + QString::number(imu.gyrData[0]/32.8) + "," + QString::number(imu.gyrData[1]/32.8) + "," + QString::number(imu.gyrData[2]/32.8) + ","
-                + QString::number(imu.accData[0]/8192.0) + "," + QString::number(imu.accData[1]/8192.0) + "," + QString::number(imu.accData[2]/8192.0) + ","
+                + QString::number(imu.accData[0]/8192) + "," + QString::number(imu.accData[1]/8192) + "," + QString::number(imu.accData[2]/8192) + ","
                 + QString::number(imu.magData[0]*0.6) + "," + QString::number(imu.magData[1]*0.6) + "," + QString::number(imu.magData[2]*0.6) + "\n";
     }
     out<<s;
