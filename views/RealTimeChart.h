@@ -8,6 +8,7 @@
 #include <QtCharts/QScatterSeries>
 #include "models/serialFrameModel.h"
 #include <QtCharts/QValueAxis>
+#include "callout.h"
 
 QT_CHARTS_USE_NAMESPACE
 
@@ -46,9 +47,16 @@ protected:
     QSplineSeries *splineSeriesY;
     QSplineSeries *splineSeriesZ;
 
+    Callout *tip;
+
     virtual void timerEvent(QTimerEvent*);
 
-    void movingAverage();
+    virtual void wheelEvent(QWheelEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
+protected slots:
+    virtual void tipSlot(QPointF position, bool isHovering);
+
+//    virtual void movingAverage();
 
 private:
 //    void dataReceived(int[3]);

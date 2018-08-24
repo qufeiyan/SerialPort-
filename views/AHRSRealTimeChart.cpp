@@ -71,6 +71,11 @@ AHRSRealTimeChart::AHRSRealTimeChart()
     setLayout(layout);
     this->setVisible(false);
 
+    tip = 0;
+
+    connect(splineSeriesX,&QSplineSeries::hovered,this,&AHRSRealTimeChart::tipSlot);
+    connect(splineSeriesY,&QSplineSeries::hovered,this,&AHRSRealTimeChart::tipSlot);
+    connect(splineSeriesZ,&QSplineSeries::hovered,this,&AHRSRealTimeChart::tipSlot);
 }
 
 AHRSRealTimeChart::~AHRSRealTimeChart()
@@ -184,6 +189,40 @@ void AHRSRealTimeChart::timerEvent(QTimerEvent *event)
             splineSeriesZ->replace(points_Z);
             data.clear();
        }
+    }
+}
+
+void AHRSRealTimeChart::tipSlot(QPointF position, bool isHovering)
+{
+    if (tip == 0)
+        tip = new Callout(chart);
+
+    if (isHovering) {
+        tip->setText(QString("X: %1 \nY: %2 ").arg(position.x()).arg(position.y()));
+        tip->setAnchor(position);
+        tip->setZValue(11);
+        tip->updateGeometry();
+        tip->show();
+    } else {
+        tip->hide();
+    }
+}
+
+void AHRSRealTimeChart::wheelEvent(QWheelEvent *event)
+{
+    if (event->delta() > 0) {
+        chart->zoom(1.1);
+    } else {
+        chart->zoom(10.0/11);
+    }
+
+    QWidget::wheelEvent(event);
+}
+
+void AHRSRealTimeChart::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() & Qt::RightButton) {
+        chart->zoomReset();
     }
 }
 

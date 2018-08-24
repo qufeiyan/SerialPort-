@@ -15,7 +15,8 @@ RealTimeChart::RealTimeChart(QWidget *parent)
 
 RealTimeChart::RealTimeChart(DispCurve_t type)
     : maxX(500),
-      axisx(new QValueAxis)
+      axisx(new QValueAxis),
+      tip(0)
 {
     this->type = type;
     if(type == Gyr){
@@ -75,6 +76,10 @@ RealTimeChart::RealTimeChart(DispCurve_t type)
     layout->addWidget(chartView);
     setLayout(layout);
     this->setVisible(false);
+
+    connect(splineSeriesX,&QSplineSeries::hovered,this,&RealTimeChart::tipSlot);
+    connect(splineSeriesY,&QSplineSeries::hovered,this,&RealTimeChart::tipSlot);
+    connect(splineSeriesZ,&QSplineSeries::hovered,this,&RealTimeChart::tipSlot);
 }
 
 RealTimeChart::~RealTimeChart()
@@ -170,29 +175,40 @@ void RealTimeChart::timerEvent(QTimerEvent *event)
     }
 }
 
-void RealTimeChart::movingAverage()
+
+void RealTimeChart::tipSlot(QPointF position, bool isHovering)
 {
-    const int length = temp.length();
-    IMUFrame imu;
-    for(int i = 0; i<length-1; i++ ){
-        for(int j = 0 ; j<length-2; j+2){
-            imu.gyrData[0] += data.at(j).gyrData[0]+data.at(j+1).gyrData[0];
-            imu.gyrData[1] += data.at(j).gyrData[1]+data.at(j+1).gyrData[1];
-            imu.gyrData[2] += data.at(j).gyrData[2]+data.at(j+1).gyrData[2];
+    if (tip == 0)
+        tip = new Callout(chart);
 
-            imu.accData[0] += data.at(j).gyrData[0]+data.at(j+1).gyrData[0];
-            imu.accData[1] += data.at(j).gyrData[1]+data.at(j+1).gyrData[1];
-            imu.accData[2] += data.at(j).gyrData[2]+data.at(j+1).gyrData[2];
-        }
-        imu.gyrData[0] = imu.gyrData[0]/length;
-        imu.gyrData[1] = imu.gyrData[1]/length;
-        imu.gyrData[2] = imu.gyrData[2]/length;
-
-        imu.accData[0] = imu.accData[0]/length;
-        imu.accData[1] = imu.accData[1]/length;
-        imu.accData[2] = imu.accData[2]/length;
-        data.replace(i,imu);
+    if (isHovering) {
+        tip->setText(QString("X: %1 \nY: %2 ").arg(position.x()).arg(position.y()));
+        tip->setAnchor(position);
+        tip->setZValue(11);
+        tip->updateGeometry();
+        tip->show();
+    } else {
+        tip->hide();
     }
+}
+
+void RealTimeChart::wheelEvent(QWheelEvent *event)
+{
+    if (event->delta() > 0) {
+        chart->zoom(1.1);
+    } else {
+        chart->zoom(10.0/11);
+    }
+
+    QWidget::wheelEvent(event);
+}
+
+void RealTimeChart::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() & Qt::RightButton) {
+        chart->zoomReset();
+    }
+//        chartView->mousePressEvent(event);
 }
 
 void RealTimeChart::creatCSV()

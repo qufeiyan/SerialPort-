@@ -45,8 +45,16 @@ private:
     IMUFrame* imu;
     // yaw/pitch/roll
     Euler ypr;
+
+    Callout *tip;
+
     void parseAngle();
     void timerEvent(QTimerEvent*) override;
+private slots:
+    void tipSlot(QPointF position, bool isHovering) override;
+
+    void wheelEvent(QWheelEvent *event) override;
+    void mousePressEvent(QMouseEvent *event) override;
 };
 
 #endif // AHRSREALTIMECHART_H
