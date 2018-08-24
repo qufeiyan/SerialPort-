@@ -6,6 +6,8 @@
 
 QT       += core gui serialport charts
 
+INCLUDEPATH += C:\Users\Administrator\Desktop\serialPort\eigen
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = serialPort
@@ -32,7 +34,16 @@ SOURCES += \
     views/CustomDispView.cpp \
     views/TextDispView.cpp \
     views/ConnectionWidget.cpp \
-    views/RealTimeChart.cpp
+    views/RealTimeChart.cpp \
+    processing/Processing.cpp \
+    processing/ElmProcessing.cpp \
+    views/AHRSRealTimeChart.cpp \
+    processing/AbstractAHRS.cpp \
+    processing/MahonyAHRS.cpp \
+    processing/MadgwickAHRS.cpp \
+    processing/AHRSContext.cpp \
+    sensorModel/geometryengine.cpp \
+    sensorModel/mainwidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,10 +53,22 @@ HEADERS += \
     views/CustomDispView.h \
     views/TextDispView.h \
     views/ConnectionWidget.h \
-    views/RealTimeChart.h
+    views/RealTimeChart.h \
+    processing/Processing.h \
+    processing/ElmProcessing.h \
+    views/AHRSRealTimeChart.h \
+    processing/AbstractAHRS.h \
+    processing/MahonyAHRS.h \
+    processing/MadgwickAHRS.h \
+    processing/AHRSContext.h \
+    sensorModel/geometryengine.h \
+    sensorModel/mainwidget.h
 
 FORMS += \
         mainwindow.ui
 
 RESOURCES += \
-    images.qrc
+    images.qrc \
+    sensorModel/textures.qrc \
+    sensorModel/shaders.qrc \
+    data/data.qrc

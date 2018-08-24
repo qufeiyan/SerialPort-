@@ -19,11 +19,7 @@
 #define DEVICE_STR ("STMicroelectronics Virtual COM Port")
 
 #define CH430 ("USB-SERIAL CH340")
-
-//#define INST_REPORT_LEN   (65)
-//#define INST_REPORT_LEN_HEADER (20)
-//#define INST_VERSION_LEN  (16)
-//#define INST_CONFIG_LEN   (1)
+#define CP210 ("Silicon Labs CP210x USB to UART Bridge")
 
 SerialConnection::SerialConnection(QObject *parent) :
     QObject(parent)
@@ -85,7 +81,7 @@ void SerialConnection::findSerialDevices()
                  << port.manufacturer() << port.description();
 
 
-        if(port.description() == CH430)
+        if(port.description() == CH430 || port.description() == CP210)
         {
             _portInfo += port;
             _ports += port.portName();
@@ -152,7 +148,7 @@ int SerialConnection::openConnection(int index)
 
     foreach (const QSerialPortInfo &port, QSerialPortInfo::availablePorts())
     {
-        if(port.description() == CH430 )
+        if(port.description() == CH430 || port.description() == CP210)
         {
             foundit++;
             if(foundit==index)

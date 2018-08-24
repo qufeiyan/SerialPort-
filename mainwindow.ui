@@ -6,12 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>754</width>
-    <height>538</height>
+    <width>744</width>
+    <height>532</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>SerialPort Tool</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -485,6 +482,9 @@
           <property name="spacing">
            <number>2</number>
           </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
          </layout>
         </item>
        </layout>
@@ -498,8 +498,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>754</width>
-     <height>22</height>
+     <width>744</width>
+     <height>17</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_C">
@@ -517,6 +517,7 @@
     <addaction name="action_ClearNum"/>
     <addaction name="action_ClearSerial"/>
     <addaction name="separator"/>
+    <addaction name="action_showModel"/>
     <addaction name="action_Exit"/>
    </widget>
    <widget class="QMenu" name="menu_A">
@@ -600,7 +601,7 @@
      <normaloff>:/images/loadfile.png</normaloff>:/images/loadfile.png</iconset>
    </property>
    <property name="text">
-    <string>读取文件</string>
+    <string>读取参数</string>
    </property>
   </action>
   <action name="action_WriteFile">
@@ -637,6 +638,11 @@
    </property>
    <property name="text">
     <string>退出程序</string>
+   </property>
+  </action>
+  <action name="action_showModel">
+   <property name="text">
+    <string>显示模型</string>
    </property>
   </action>
  </widget>

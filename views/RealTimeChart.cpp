@@ -18,11 +18,10 @@ RealTimeChart::RealTimeChart(DispCurve_t type)
       axisx(new QValueAxis)
 {
     this->type = type;
-    this->timerID = timerID;
     if(type == Gyr){
-        maxY = 1000;
+        maxY = 500;
     }else if(type == Acc){
-        maxY = 4;
+        maxY = 2;
     }else if(type == Mag){
         maxY = 400;
     }
@@ -65,6 +64,12 @@ RealTimeChart::RealTimeChart(DispCurve_t type)
 //    chart->axisX()->setRange(0, maxX);
     chart->axisY()->setRange(-maxY, maxY);
 
+    for(int i=0;i<maxX;++i){
+        splineSeriesX->append(i,0);
+        splineSeriesY->append(i,0);
+        splineSeriesZ->append(i,0);
+    }
+
     QHBoxLayout *layout = new QHBoxLayout();
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(chartView);
@@ -106,20 +111,17 @@ void RealTimeChart::init()
             default:
                 break;
         }
-        for(int i=0;i<maxX;++i){
-            splineSeriesX->append(i,0);
-            splineSeriesY->append(i,0);
-            splineSeriesZ->append(i,0);
-        }
         this->setVisible(true);
     }
-    timerID = startTimer(20);
+    timerID = startTimer(TIMER_INTERVAL);
 }
 
 void RealTimeChart::dataReceived(IMUFrame *imu)
 {
     data<<*imu;
     temp<<*imu; //保存用
+//    if (data.length()>5)
+//        movingAverage();
 //    qDebug()<<"imu-->"<<imu->accData[0];
 //    qDebug()<<"data-->imu"<<data.last().accData[0];
 }
@@ -128,7 +130,7 @@ void RealTimeChart::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == timerID) {
         int size = data.length();//数据个数
-        qDebug()<<"size-->"<<size;
+//        qDebug()<<"size-->"<<size;
         if(isVisible()){
             QVector<QPointF> oldPoints_X = splineSeriesX->pointsVector();//Returns the points in the series as a vector
             QVector<QPointF> points_X;
@@ -147,17 +149,17 @@ void RealTimeChart::timerEvent(QTimerEvent *event)
             qint64 sizePoints = points_X.count();
             for(int k=0;k<size;++k){
                 if(type == Acc){
-                    points_X.append(QPointF(k+sizePoints,(double)data.at(k).accData[0]/8192));
-                    points_Y.append(QPointF(k+sizePoints,(double)data.at(k).accData[1]/8192));
-                    points_Z.append(QPointF(k+sizePoints,(double)data.at(k).accData[2]/8192));
+                    points_X.append(QPointF(k+sizePoints,(double)data.at(k).accData[0]/8192.0 - imuBias.accBias[0]));
+                    points_Y.append(QPointF(k+sizePoints,(double)data.at(k).accData[1]/8192.0 - imuBias.accBias[1]));
+                    points_Z.append(QPointF(k+sizePoints,(double)data.at(k).accData[2]/8192.0 - imuBias.accBias[2]));
                 }else if(type == Mag){
-                    points_X.append(QPointF(k+sizePoints,(double)data.at(k).magData[0]*0.6));
-                    points_Y.append(QPointF(k+sizePoints,(double)data.at(k).magData[1]*0.6));
-                    points_Z.append(QPointF(k+sizePoints,(double)data.at(k).magData[2]*0.6));
+                    points_X.append(QPointF(k+sizePoints,(double)data.at(k).magData[0]*15));
+                    points_Y.append(QPointF(k+sizePoints,(double)data.at(k).magData[1]*15));
+                    points_Z.append(QPointF(k+sizePoints,(double)data.at(k).magData[2]*15));
                 }else if(type == Gyr){
-                    points_X.append(QPointF(k+sizePoints,(double)data.at(k).gyrData[0]/32.8));
-                    points_Y.append(QPointF(k+sizePoints,(double)data.at(k).gyrData[1]/32.8));
-                    points_Z.append(QPointF(k+sizePoints,(double)data.at(k).gyrData[2]/32.8));
+                    points_X.append(QPointF(k+sizePoints,(double)data.at(k).gyrData[0]/16.4 - imuBias.gyrBias[0]));
+                    points_Y.append(QPointF(k+sizePoints,(double)data.at(k).gyrData[1]/16.4 - imuBias.gyrBias[1]));
+                    points_Z.append(QPointF(k+sizePoints,(double)data.at(k).gyrData[2]/16.4 - imuBias.gyrBias[2]));
                 }
             }
             splineSeriesX->replace(points_X);
@@ -165,6 +167,31 @@ void RealTimeChart::timerEvent(QTimerEvent *event)
             splineSeriesZ->replace(points_Z);
             data.clear();
        }
+    }
+}
+
+void RealTimeChart::movingAverage()
+{
+    const int length = temp.length();
+    IMUFrame imu;
+    for(int i = 0; i<length-1; i++ ){
+        for(int j = 0 ; j<length-2; j+2){
+            imu.gyrData[0] += data.at(j).gyrData[0]+data.at(j+1).gyrData[0];
+            imu.gyrData[1] += data.at(j).gyrData[1]+data.at(j+1).gyrData[1];
+            imu.gyrData[2] += data.at(j).gyrData[2]+data.at(j+1).gyrData[2];
+
+            imu.accData[0] += data.at(j).gyrData[0]+data.at(j+1).gyrData[0];
+            imu.accData[1] += data.at(j).gyrData[1]+data.at(j+1).gyrData[1];
+            imu.accData[2] += data.at(j).gyrData[2]+data.at(j+1).gyrData[2];
+        }
+        imu.gyrData[0] = imu.gyrData[0]/length;
+        imu.gyrData[1] = imu.gyrData[1]/length;
+        imu.gyrData[2] = imu.gyrData[2]/length;
+
+        imu.accData[0] = imu.accData[0]/length;
+        imu.accData[1] = imu.accData[1]/length;
+        imu.accData[2] = imu.accData[2]/length;
+        data.replace(i,imu);
     }
 }
 
@@ -185,9 +212,9 @@ void RealTimeChart::creatCSV()
     s = "";
     foreach (IMUFrame imu, temp) {
         s += QString::number(imu.frmSeq) + ","
-                + QString::number(imu.gyrData[0]/32.8) + "," + QString::number(imu.gyrData[1]/32.8) + "," + QString::number(imu.gyrData[2]/32.8) + ","
-                + QString::number(imu.accData[0]/8192) + "," + QString::number(imu.accData[1]/8192) + "," + QString::number(imu.accData[2]/8192) + ","
-                + QString::number(imu.magData[0]*0.6) + "," + QString::number(imu.magData[1]*0.6) + "," + QString::number(imu.magData[2]*0.6) + "\n";
+                + QString::number(imu.gyrData[0]/16.4 - imuBias.gyrBias[0]) + "," + QString::number(imu.gyrData[1]/16.4 - imuBias.gyrBias[1]) + "," + QString::number(imu.gyrData[2]/16.4 - imuBias.gyrBias[2]) + ","
+                + QString::number(imu.accData[0]/8192.0 - imuBias.accBias[0]) + "," + QString::number(imu.accData[1]/8192.0 - imuBias.accBias[1]) + "," + QString::number(imu.accData[2]/8192.0 - imuBias.accBias[2]) + ","
+                + QString::number(imu.magData[0]*15) + "," + QString::number(imu.magData[1]*15) + "," + QString::number(imu.magData[2]*15) + "\n";
     }
     out<<s;
     QMessageBox::information(this,tr("导出数据成功"),tr("信息已保存在%1！").arg(fileName),tr("确定"));

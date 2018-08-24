@@ -2,10 +2,22 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QThread>
+#include <processing/Processing.h>
+
+#ifndef QT_NO_OPENGL
+#include "sensorModel/mainwidget.h"
+#else
+#include <QLabel>
+#endif
+
+class ElmProcessing;
 class RealTimeChart;
 class ConnectionWidget;
 class TextDispView;
 class CustomDispView;
+class AHRSRealTimeChart;
+
 namespace Ui {
 class MainWindow;
 }
@@ -27,7 +39,18 @@ private slots:
 
     void on_action_OpenSerial_triggered();
 
+    void on_action_ReadFile_triggered();
+
+    void receiveState(bool);
+
+    void on_action_showModel_triggered();
+
 private:
+
+    MainWidget *sensorWidget;
+
+    ElmProcessing  *elm;
+
     Ui::MainWindow *ui;
 
     ConnectionWidget *connectionWidget;
@@ -36,7 +59,17 @@ private:
     RealTimeChart* gyrChart;
     RealTimeChart* accChart;
     RealTimeChart* magChart;
+
+    QDockWidget* gyrDock;
+    QDockWidget* accDock;
+    QDockWidget* magDock;
+    QDockWidget* ahrsDock;
+
+    AHRSRealTimeChart* ahrsChart;
+
     void startDisp();
+
+    QThread processThread;
 };
 
 #endif // MAINWINDOW_H

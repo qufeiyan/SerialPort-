@@ -11,6 +11,7 @@
 
 QT_CHARTS_USE_NAMESPACE
 
+#define TIMER_INTERVAL 40
 typedef enum{
     Gyr = 0,
     Acc,
@@ -25,17 +26,14 @@ public:
     RealTimeChart(QWidget *parent = 0);
     RealTimeChart(DispCurve_t);
     ~RealTimeChart();
-    void creatCSV();
-    void stopTimer();
+    virtual void creatCSV();
+    virtual void stopTimer();
 public slots:
-    void init();
-    void dataReceived(IMUFrame *imu);
-protected:
-    void timerEvent(QTimerEvent*);
+    virtual void init();
+    virtual void dataReceived(IMUFrame *imu);
 
-private:
-//    void dataReceived(int[3]);
-    DispCurve_t type;
+protected:
+
     int timerID;
     int maxX;
     int maxY;
@@ -47,6 +45,14 @@ private:
     QSplineSeries *splineSeriesX;
     QSplineSeries *splineSeriesY;
     QSplineSeries *splineSeriesZ;
+
+    virtual void timerEvent(QTimerEvent*);
+
+    void movingAverage();
+
+private:
+//    void dataReceived(int[3]);
+    DispCurve_t type;
 };
 
 #endif // REALTIMECURVEQCHARTWIDGET_H

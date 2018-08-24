@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>beta.csv</file>
+        <file>bias.csv</file>
+        <file>weight.csv</file>
+    </qresource>
+</RCC>
